@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+python-multipart
+bcrypt
+itsdangerous
+httpx
+python-dotenv
+pydantic[email]
+sqlalchemy>=2.0
+google-auth
+requests

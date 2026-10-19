@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "DermaVision",
+    "slug": "dermavision-mobil",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "derma",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "android": {
+      "package": "com.dermavision.app",
+      "permissions": [
+        "CAMERA"
+      ]
+    },
+    "ios": {
+      "bundleIdentifier": "com.dermavision.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Cilt fotoğrafı çekebilmek için kameraya erişim gerekir.",
+        "NSPhotoLibraryUsageDescription": "Galeriden cilt fotoğrafı seçebilmek için erişim gerekir."
+      }
+    },
+    "plugins": [
+      "expo-secure-store",
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "Cilt fotoğrafı çekebilmek için kameraya erişim gerekir.",
+          "photosPermission": "Galeriden cilt fotoğrafı seçebilmek için erişim gerekir."
+        }
+      ],
+      "@react-native-google-signin/google-signin"
+    ]
+  }
+}

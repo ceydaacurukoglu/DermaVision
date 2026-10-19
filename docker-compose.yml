@@ -1,0 +1,20 @@
+services:
+  api:
+    build: ./backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DERMA_VERI_DIZINI: /data     # SQLite dosyası (dermavision.db) ve yüklenen fotoğraflar
+    volumes:
+      - derma_veri:/data           # konteyner silinse de veri kalır
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request as u; u.urlopen('http://localhost:8000/saglik')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  derma_veri:
