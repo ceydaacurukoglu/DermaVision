@@ -1,0 +1,27 @@
+{
+ "siniflar": [
+  "ACK",
+  "BCC",
+  "MEL",
+  "NEV",
+  "SCC",
+  "SEK"
+ ],
+ "img_boyutu": 299,
+ "girdi_araligi": "0-255 (ölçekleme model içinde)",
+ "tta": "orijinal + yatay ayna + dikey ayna ortalaması",
+ "parametreler": {
+  "lr_isinma": 0.0025877839233810263,
+  "lr_ince": 4.153827332503848e-05,
+  "weight_decay": 3.2214343184496676e-05,
+  "dropout_goruntu": 0.3233602891759516,
+  "dropout_klinik": 0.19195043780647134,
+  "dropout_birlesim": 0.25278637305791285,
+  "klinik_genislik": 128,
+  "aug": "guclu",
+  "label_smoothing": 0.1295461351878389,
+  "acik": "tumu",
+  "batch": 16
+ },
+ "egitim_epok": 30
+}

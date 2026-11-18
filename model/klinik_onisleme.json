@@ -1,0 +1,161 @@
+{
+ "medyan": {
+  "age": 62.0,
+  "fitspatrick": 2.0,
+  "diameter_1": 10.0,
+  "diameter_2": 7.0
+ },
+ "kategori": {
+  "smoke": [
+   "FALSE",
+   "TRUE",
+   "Unknown"
+  ],
+  "drink": [
+   "FALSE",
+   "TRUE",
+   "Unknown"
+  ],
+  "background_father": [
+   "AUSTRIA",
+   "BRASIL",
+   "BRAZIL",
+   "CZECH",
+   "GERMANY",
+   "ISRAEL",
+   "ITALY",
+   "NETHERLANDS",
+   "POLAND",
+   "POMERANIA",
+   "PORTUGAL",
+   "SPAIN",
+   "Unknown"
+  ],
+  "background_mother": [
+   "BRAZIL",
+   "FRANCE",
+   "GERMANY",
+   "ITALY",
+   "NETHERLANDS",
+   "NORWAY",
+   "POLAND",
+   "POMERANIA",
+   "PORTUGAL",
+   "SPAIN",
+   "Unknown"
+  ],
+  "pesticide": [
+   "FALSE",
+   "TRUE",
+   "Unknown"
+  ],
+  "gender": [
+   "FEMALE",
+   "MALE",
+   "Unknown"
+  ],
+  "skin_cancer_history": [
+   "FALSE",
+   "TRUE",
+   "Unknown"
+  ],
+  "cancer_history": [
+   "FALSE",
+   "TRUE",
+   "Unknown"
+  ],
+  "has_piped_water": [
+   "FALSE",
+   "TRUE",
+   "Unknown"
+  ],
+  "has_sewage_system": [
+   "FALSE",
+   "TRUE",
+   "Unknown"
+  ],
+  "region": [
+   "ABDOMEN",
+   "ARM",
+   "BACK",
+   "CHEST",
+   "EAR",
+   "FACE",
+   "FOOT",
+   "FOREARM",
+   "HAND",
+   "LIP",
+   "NECK",
+   "NOSE",
+   "SCALP",
+   "THIGH"
+  ],
+  "itch": [
+   "FALSE",
+   "TRUE",
+   "Unknown"
+  ],
+  "grew": [
+   "FALSE",
+   "TRUE",
+   "Unknown"
+  ],
+  "hurt": [
+   "FALSE",
+   "TRUE",
+   "Unknown"
+  ],
+  "changed": [
+   "FALSE",
+   "TRUE",
+   "Unknown"
+  ],
+  "bleed": [
+   "FALSE",
+   "TRUE",
+   "Unknown"
+  ],
+  "elevation": [
+   "FALSE",
+   "TRUE",
+   "Unknown"
+  ]
+ },
+ "ort": {
+  "age": 60.63427947598253,
+  "fitspatrick": 2.171943231441048,
+  "diameter_1": 11.139847161572053,
+  "diameter_2": 8.115829694323144
+ },
+ "std": {
+  "age": 16.026721392933805,
+  "fitspatrick": 0.6061931791526066,
+  "diameter_1": 6.511520318909799,
+  "diameter_2": 4.2885200381189525
+ },
+ "sayisal": [
+  "age",
+  "fitspatrick",
+  "diameter_1",
+  "diameter_2"
+ ],
+ "kategorik": [
+  "smoke",
+  "drink",
+  "background_father",
+  "background_mother",
+  "pesticide",
+  "gender",
+  "skin_cancer_history",
+  "cancer_history",
+  "has_piped_water",
+  "has_sewage_system",
+  "region",
+  "itch",
+  "grew",
+  "hurt",
+  "changed",
+  "bleed",
+  "elevation"
+ ]
+}

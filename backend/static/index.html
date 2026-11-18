@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DermaVision</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{--bg:#F3F7FC;--card:#fff;--line:#D9E2F0;--ink:#14284B;--mute:#5B6B86;--navy:#1B3A6B;--blue:#2A66C8;--tint:#E8F0FB;--on:#fff;--ok:#1D7A4D;--err:#B3261E;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1626;--card:#16213A;--line:#2A3858;--ink:#E6ECF8;--mute:#9AA9C4;--navy:#3B6BC4;--blue:#7FA8F0;--tint:#1C2B4C;--ok:#5CCB97;--err:#F2928C}}
+:root[data-theme="dark"]{--bg:#0E1626;--card:#16213A;--line:#2A3858;--ink:#E6ECF8;--mute:#9AA9C4;--navy:#3B6BC4;--blue:#7FA8F0;--tint:#1C2B4C;--ok:#5CCB97;--err:#F2928C}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+[hidden]{display:none!important}
+.vh{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.app{max-width:420px;margin:0 auto;padding:20px 18px 36px}
+body.menulu .app{padding-bottom:104px}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.brand b{display:block;font-size:17px;font-weight:700;line-height:1.1}
+.brand small{display:block;color:var(--blue);font-size:11px;font-weight:500}
+h1{font-size:28px;line-height:1.15;margin:0 0 8px;font-weight:700;letter-spacing:-.4px}
+.sub{color:var(--mute);margin:0 0 22px;font-size:14px}
+label.f{display:block;font-size:13px;font-weight:600;margin:0 0 6px}
+.in{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:0 14px;height:48px;margin-bottom:14px;color:var(--mute)}
+.in:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px color-mix(in srgb,var(--blue) 22%,transparent)}
+.in input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--ink);font:inherit}
+.eye{background:none;border:0;padding:4px;margin-right:-4px;color:var(--mute);cursor:pointer;display:grid;place-items:center;border-radius:8px}
+.eye:focus-visible{outline:2px solid var(--blue)}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:50px;border-radius:12px;border:1px solid transparent;font:600 15px Inter,system-ui,sans-serif;cursor:pointer}
+.btn:focus-visible,.chk input:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.btn.p{background:var(--navy);color:var(--on)}
+.btn.p:disabled{opacity:.45;cursor:not-allowed}
+.btn.o{background:var(--card);color:var(--ink);border-color:var(--line)}
+.in.bad{border-color:var(--err)}
+.in input[type=date]{color-scheme:light dark}
+.in input:disabled{opacity:.45}
+.ferr{color:var(--err);font-size:12.5px;margin:-8px 0 12px}
+.ferr:empty{display:none}
+.sep{display:flex;align-items:center;gap:12px;color:var(--mute);font-size:13px;margin:18px 0}
+.sep::before,.sep::after{content:"";flex:1;height:1px;background:var(--line)}
+.foot{text-align:center;color:var(--mute);font-size:13px;margin-top:20px}
+.foot a{color:var(--blue);font-weight:600;text-decoration:none}
+.lnk{margin-left:auto;background:none;border:0;color:var(--blue);font:600 13px Inter,system-ui,sans-serif;cursor:pointer;padding:8px}
+.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.drop{border:1.5px dashed var(--blue);background:var(--tint);border-radius:16px;min-height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:18px;margin-bottom:12px;overflow:hidden;position:relative}
+.drop .ic{width:44px;height:44px;border-radius:12px;background:var(--card);display:grid;place-items:center;color:var(--blue)}
+.drop strong{font-size:15px}
+.drop span{color:var(--mute);font-size:12.5px}
+.drop img{display:none;width:100%;max-height:300px;object-fit:cover;border-radius:10px}
+.drop.has{padding:10px;align-items:stretch;border-style:solid}
+.drop.has img{display:block}
+.drop.has .ph{display:none}
+.fname{font-size:12.5px;color:var(--mute);text-align:center;margin:-2px 0 10px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:16px}
+.card h2{font-size:14px;margin:0 0 10px}
+.tip{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;font-size:13px}
+.tip:last-child{margin:0}
+.tip .i{color:var(--blue);margin-top:2px}
+.tip b{display:block;font-weight:600}
+.tip span{color:var(--mute)}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--mute);margin-bottom:16px}
+.chk input{width:18px;height:18px;margin:1px 0 0;accent-color:var(--navy);flex:none}
+.err{color:var(--err);font-size:13px;min-height:18px;margin:0 0 8px;text-align:center}
+.note{text-align:center;color:var(--mute);font-size:12px;margin-top:12px}
+.ok{width:56px;height:56px;border-radius:50%;background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok);display:grid;place-items:center;margin:8px auto 14px}
+.ok .i{width:28px;height:28px;stroke-width:2.4}
+#done{text-align:center}
+#done img{width:100%;max-height:260px;object-fit:cover;border-radius:14px;margin:6px 0 16px}
+#kameraEkrani{position:fixed;inset:0;background:#000;z-index:30;display:flex;flex-direction:column}
+#kameraEkrani video{flex:1;min-height:0;width:100%;object-fit:cover}
+.cb{display:flex;align-items:center;justify-content:space-between;padding:18px 24px calc(18px + env(safe-area-inset-bottom,0px));background:#000}
+.cb button{font:600 14px Inter,system-ui,sans-serif;color:#fff;background:none;border:0;padding:10px;min-width:70px;cursor:pointer}
+.snap{width:68px;height:68px;border-radius:50%;border:4px solid #fff;background:transparent;padding:0;cursor:pointer;position:relative}
+.snap::after{content:"";position:absolute;inset:5px;border-radius:50%;background:#fff}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:13px;max-width:90%;z-index:20;text-align:center}
+body.menulu #toast{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+/* Karşılama ekranı */
+#welcome{text-align:center;padding-top:4px}
+.eyebrow{color:var(--blue);font-size:11px;font-weight:600;letter-spacing:.6px;margin:0 0 6px}
+.halka{position:relative;width:250px;height:250px;margin:14px auto 18px}
+.halka .r{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%}
+.r1{width:250px;height:250px;border:1px solid var(--line)}
+.r2{width:196px;height:196px;background:color-mix(in srgb,var(--blue) 10%,transparent)}
+.r3{width:146px;height:146px;background:color-mix(in srgb,var(--blue) 16%,transparent)}
+.tile{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:104px;height:104px;border-radius:26px;background:var(--card);display:grid;place-items:center;box-shadow:0 8px 26px color-mix(in srgb,var(--navy) 24%,transparent)}
+.chip{position:absolute;display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:11.5px;font-weight:500;color:var(--ink)}
+.chip .i{width:14px;height:14px;color:var(--blue)}
+.c1{left:-4px;top:36px}.c2{right:-2px;bottom:46px}
+.wname{font-size:34px;color:var(--navy);margin:0;letter-spacing:-.5px}
+.wsub{color:var(--blue);font-size:11px;letter-spacing:.6px;margin:2px 0 18px}
+.whead{font-size:21px;line-height:1.25;margin:0 0 10px;font-weight:700}
+/* Alt menü */
+#altMenu{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:420px;z-index:10;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px 8px;background:none;border:0;color:var(--mute);font:500 11px Inter,system-ui,sans-serif;cursor:pointer}
+.tab:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+.tab.on{color:var(--blue)}
+.tab.on .i{box-sizing:content-box;background:var(--tint);padding:4px 14px;border-radius:999px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+<symbol id="lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+<symbol id="goz" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="goz-kapali" viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M10.6 6.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4.1M6.6 6.7A17 17 0 0 0 2 12s3.6 7 10 7c1.6 0 3-.4 4.3-1M9.9 9.9a3 3 0 0 0 4.2 4.2"/></symbol>
+<symbol id="ikon-kamera" viewBox="0 0 24 24"><path d="M3 8h4l2-3h6l2 3h4v11H3z"/><circle cx="12" cy="13.5" r="3.5"/></symbol>
+<symbol id="img" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="m4 18 5-5 4 4 3-3 4 4"/></symbol>
+<symbol id="scan" viewBox="0 0 24 24"><path d="M4 9V5h4M20 9V5h-4M4 15v4h4M20 15v4h-4"/><circle cx="12" cy="12" r="2"/></symbol>
+<symbol id="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></symbol>
+<symbol id="rule" viewBox="0 0 24 24"><rect x="3" y="9" width="18" height="6" rx="1"/><path d="M7 9v3M11 9v2M15 9v3M19 9v2"/></symbol>
+<symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+<symbol id="check" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
+<symbol id="spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></symbol>
+<symbol id="doc" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+<symbol id="pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+<symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></symbol>
+<symbol id="logo" viewBox="0 0 40 40"><path d="M20 3 6 8v10c0 9 6 16 14 19 8-3 14-10 14-19V8z" fill="var(--navy)" stroke="none"/><circle cx="19" cy="19" r="6.5" fill="none" stroke="#fff" stroke-width="2.4"/><path d="m24 24 6 6" stroke="#fff" stroke-width="2.6"/></symbol>
+</svg>
+
+<main class="app">
+
+<!-- KARŞILAMA EKRANI -->
+<section id="welcome">
+  <p class="eyebrow">CİLT SAĞLIĞI İÇİN BİR İLK ADIM</p>
+  <div class="halka" aria-hidden="true">
+    <span class="r r1"></span><span class="r r2"></span><span class="r r3"></span>
+    <div class="tile"><svg class="i" style="width:72px;height:72px"><use href="#logo"/></svg></div>
+    <span class="chip c1"><svg class="i"><use href="#scan"/></svg>Fark et</span>
+    <span class="chip c2"><svg class="i"><use href="#spark"/></svg>Anla</span>
+  </div>
+  <h1 class="wname">DermaVision</h1>
+  <p class="wsub">AI DERMATOLOGY</p>
+  <h2 class="whead">Cildinizi tanıyın.<br>Bir adım önde olun.</h2>
+  <p class="sub">Yapay zeka destekli ön değerlendirme ile cildinizdeki değişimleri anlamaya başlayın.</p>
+  <button class="btn p" id="startBtn">Başlayalım <svg class="i"><use href="#arrow"/></svg></button>
+  <p class="note" style="margin-top:16px">Bir tanı aracı değildir.<br>Dermatolog muayenesinin yerini tutmaz.</p>
+</section>
+
+<!-- GİRİŞ EKRANI -->
+<section id="login" hidden>
+  <div class="brand"><svg class="i" style="width:38px;height:38px"><use href="#logo"/></svg><div><b>DermaVision</b><small>AI Dermatology</small></div></div>
+  <h1>İyi ki geldiniz.</h1>
+  <p class="sub">Cilt sağlığınıza ayrıntılı bakmak için küçük bir adımda yanınızdayız. Hesabınıza giriş yapın.</p>
+
+  <label class="f" for="em">E-posta adresi</label>
+  <div class="in"><svg class="i"><use href="#mail"/></svg><input id="em" type="email" placeholder="deniz.yilmaz@ornek.com" autocomplete="email"></div>
+  <p class="ferr" id="emErr" role="alert"></p>
+
+  <label class="f" for="pw">Şifre</label>
+  <div class="in" style="margin-bottom:0;"><svg class="i"><use href="#lock"/></svg><input id="pw" type="password" placeholder="••••••••" autocomplete="current-password"></div>
+  <p class="ferr" id="pwErr" role="alert" style="margin-top:6px"></p>
+
+  <div style="display:flex; justify-content:space-between; align-items:center; margin: 12px 0 16px;">
+    <label class="chk" style="margin:0"><input type="checkbox" id="remember"><span>Beni hatırla</span></label>
+    <a href="#" id="forgotLink" style="font-size:13px; color:var(--blue); font-weight:600; text-decoration:none">Şifremi unuttum</a>
+  </div>
+
+  <button class="btn p" id="loginBtn">Giriş yap <svg class="i"><use href="#arrow"/></svg></button>
+
+  <p class="foot" style="margin-top:16px;">Henüz hesabınız yok mu? <a href="#" id="signupLink">Kayıt olun</a></p>
+
+  <div class="sep">veya</div>
+  <button class="btn o" id="g">
+    <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.2 5.5-4.7 7.2l7.6 5.9c4.4-4.1 6.9-10.1 6.9-17.6z"/><path fill="#FBBC05" d="M10.5 28.7A14.5 14.5 0 0 1 9.5 24c0-1.6.3-3.2.9-4.7l-7.9-6.1A24 24 0 0 0 0 24c0 3.9.9 7.5 2.6 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.6-5.9c-2.1 1.4-4.9 2.3-8.3 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>
+    Google ile giriş yap
+  </button>
+
+  <p class="note" style="margin-top:32px;">Mahremiyetiniz önceliğimiz.<br>Gizlilik Politikası · Kullanım Koşulları</p>
+</section>
+
+<!-- ŞİFREMİ UNUTTUM EKRANI -->
+<section id="forgot" hidden>
+  <div class="brand"><svg class="i" style="width:38px;height:38px"><use href="#logo"/></svg><div><b>DermaVision</b><small>AI Dermatology</small></div></div>
+  <h1>Şifremi unuttum</h1>
+  <p class="sub">Hesabınıza kayıtlı e-posta adresini girin. Şifrenizi yenilemeniz için size bir bağlantı gönderelim.</p>
+
+  <label class="f" for="f_em">E-posta adresi</label>
+  <div class="in" style="margin-bottom:8px"><svg class="i"><use href="#mail"/></svg><input id="f_em" type="email" placeholder="ornek@eposta.com" autocomplete="email"></div>
+  <p class="err" id="f_err" role="alert" style="text-align:left"></p>
+
+  <button class="btn p" id="forgotBtn" style="margin-top:12px">Sıfırlama bağlantısı gönder</button>
+
+  <div style="text-align:center; margin-top:24px;">
+    <a href="#" class="toLogin" style="font-size:13.5px; font-weight:600; color:var(--blue); text-decoration:none;">&larr; Giriş yap ekranına dön</a>
+  </div>
+</section>
+
+<!-- YENİ ŞİFRE BELİRLE EKRANI -->
+<section id="reset" hidden>
+  <div class="brand"><svg class="i" style="width:38px;height:38px"><use href="#logo"/></svg><div><b>DermaVision</b><small>AI Dermatology</small></div></div>
+  <h1>Yeni şifre belirleyin</h1>
+  <p class="sub">En az 8 karakter; büyük harf, küçük harf ve rakam içermeli.</p>
+
+  <label class="f" for="r_pw">Yeni şifre</label>
+  <div class="in"><svg class="i"><use href="#lock"/></svg><input id="r_pw" type="password" placeholder="••••••••" autocomplete="new-password"></div>
+
+  <label class="f" for="r_pw2">Şifre tekrarı</label>
+  <div class="in"><svg class="i"><use href="#lock"/></svg><input id="r_pw2" type="password" placeholder="••••••••" autocomplete="new-password"></div>
+
+  <p class="err" id="r_err" role="alert"></p>
+  <button class="btn p" id="resetBtn">Şifreyi güncelle</button>
+</section>
+
+<!-- KAYIT OL EKRANI -->
+<section id="signup" hidden>
+  <div class="brand"><svg class="i" style="width:38px;height:38px"><use href="#logo"/></svg><div><b>DermaVision</b><small>AI Dermatology</small></div></div>
+  <h1>Hesap oluşturun.</h1>
+  <p class="sub">Sizi tanıyalım. Bilgilerinizi ekleyerek cilt sağlığınız için ilk adımı atın.</p>
+
+  <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:12px;">
+    <h2 style="font-size:15px; margin:0;">Hesap bilgileri</h2>
+    <span style="font-size:11px; color:var(--mute)">* Zorunlu alan</span>
+  </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+    <div>
+      <label class="f" for="s_ad">Ad *</label>
+      <div class="in"><input id="s_ad" type="text" placeholder="Deniz" autocomplete="given-name"></div>
+    </div>
+    <div>
+      <label class="f" for="s_soyad">Soyad *</label>
+      <div class="in"><input id="s_soyad" type="text" placeholder="Yılmaz" autocomplete="family-name"></div>
+    </div>
+  </div>
+
+  <label class="f" for="s_em">E-posta *</label>
+  <div class="in"><svg class="i"><use href="#mail"/></svg><input id="s_em" type="email" placeholder="deniz.yilmaz@ornek.com" autocomplete="email"></div>
+
+  <label class="f" for="s_pw">Şifre *</label>
+  <div class="in" style="margin-bottom:6px;"><svg class="i"><use href="#lock"/></svg><input id="s_pw" type="password" placeholder="••••••••" autocomplete="new-password"></div>
+  <p style="font-size:11px; color:var(--mute); margin:0 0 14px;">En az 8 karakter; büyük harf, küçük harf ve rakam içermeli.</p>
+
+  <label class="f" for="s_pw2">Şifre tekrarı *</label>
+  <div class="in"><svg class="i"><use href="#lock"/></svg><input id="s_pw2" type="password" placeholder="••••••••" autocomplete="new-password"></div>
+
+  <h2 style="font-size:15px; margin:24px 0 12px;">Kişisel bilgiler</h2>
+
+  <label class="f" for="s_dob">Doğum tarihi</label>
+  <div class="in" style="margin-bottom:10px;"><input id="s_dob" type="date"></div>
+  <label class="btn o" style="width:100%; height:46px; font-weight:500; font-size:13px; margin-bottom:20px; justify-content:flex-start; padding:0 14px;"><input type="checkbox" id="s_dob_skip" style="margin-right:8px; accent-color:var(--navy)">Belirtmek istemiyorum</label>
+
+  <label class="f">Cinsiyet</label>
+  <div style="display:flex; gap:10px; margin-bottom:10px;">
+     <label class="btn o" style="flex:1; height:46px; font-weight:500; font-size:13px;"><input type="radio" name="gender" value="kadin" style="margin-right:6px; accent-color:var(--navy)">Kadın</label>
+     <label class="btn o" style="flex:1; height:46px; font-weight:500; font-size:13px;"><input type="radio" name="gender" value="erkek" style="margin-right:6px; accent-color:var(--navy)">Erkek</label>
+  </div>
+  <label class="btn o" style="width:100%; height:46px; font-weight:500; font-size:13px; margin-bottom:24px; justify-content:flex-start; padding:0 14px;"><input type="radio" name="gender" value="diger" style="margin-right:8px; accent-color:var(--navy)">Belirtmek istemiyorum</label>
+
+  <label class="chk" style="margin-bottom:12px;"><input type="checkbox" id="s_adult"><span>18 yaşından büyük olduğumu beyan ederim. *</span></label>
+  <label class="chk" style="margin-bottom:12px;"><input type="checkbox" id="s_kvkk"><span><b>KVKK Aydınlatma Metni</b>'ni ve <b>Gizlilik Politikası</b>'nı okudum. *</span></label>
+  <label class="chk" style="margin-bottom:16px;"><input type="checkbox" id="s_terms"><span><b>Kullanım Koşulları</b>'nı okudum ve kabul ediyorum. *</span></label>
+
+  <p class="err" id="s_err" role="alert"></p>
+  <button class="btn p" id="signupBtn">Hesap oluştur</button>
+
+  <p class="foot">Zaten hesabınız var mı? <a href="#" class="toLogin">Giriş yapın</a></p>
+</section>
+
+<!-- FOTOĞRAF YÜKLEME EKRANI -->
+<section id="up" hidden>
+  <div class="brand"><svg class="i" style="width:38px;height:38px"><use href="#logo"/></svg><div><b>DermaVision</b><small>AI Dermatology</small></div><button class="lnk" id="logout">Çıkış yap</button></div>
+  <small style="display:block; color:var(--blue); font-size:11px; font-weight:700; text-transform:uppercase; margin-bottom:4px; letter-spacing:0.5px;">FOTOĞRAF İLE ÖN DEĞERLENDİRME</small>
+  <h1>Cildinize birlikte bakalım</h1>
+  <p class="sub">İncelemek istediğiniz cilt bölgesinin net bir fotoğrafını ekleyin.</p>
+
+  <div class="drop" id="drop">
+    <div class="ph" style="display:contents">
+      <div class="ic"><svg class="i"><use href="#scan"/></svg></div>
+      <strong>Bir cilt fotoğrafı ekleyin</strong>
+      <span>JPG veya PNG · En fazla 10 MB</span>
+    </div>
+    <img id="prev" alt="Seçilen cilt fotoğrafı">
+  </div>
+  <p class="fname" id="fname" hidden></p>
+
+  <div class="row">
+    <button class="btn p" id="camBtn"><svg class="i"><use href="#ikon-kamera"/></svg>Kamera</button>
+    <button class="btn o" id="galBtn"><svg class="i"><use href="#img"/></svg>Galeri</button>
+  </div>
+
+  <input id="nat" class="vh" type="file" accept="image/*" capture="environment" tabindex="-1">
+  <input id="gal" class="vh" type="file" accept="image/jpeg,image/png" tabindex="-1">
+
+  <div class="card">
+    <h2>İyi bir fotoğraf için</h2>
+    <div class="tip"><svg class="i"><use href="#sun"/></svg><div><b>Doğal ışık kullanın</b><span>Flaş ve filtre kullanmayın.</span></div></div>
+    <div class="tip"><svg class="i"><use href="#scan"/></svg><div><b>Net ve yakından çekin</b><span>Cilt bölgesi kadrajın ortasında olsun.</span></div></div>
+    <div class="tip"><svg class="i"><use href="#rule"/></svg><div><b>Ölçeği görünür kılın</b><span>Yanına bir cetvel yerleştirebilirsiniz.</span></div></div>
+  </div>
+
+  <label class="chk" style="margin-bottom:20px;"><input type="checkbox" id="consent"><span>Fotoğrafımın ön değerlendirme amacıyla işlenmesine onay veriyorum. <b>Aydınlatma metni</b><br><br>Yüzünüzü veya kimlik bilgilerinizi kadraja almayın.</span></label>
+
+  <div class="card" style="margin-bottom:20px;">
+    <h2 style="margin-bottom:6px; font-size:15px;">Lezyon Hakkında</h2>
+    <p style="font-size:12.5px; color:var(--mute); margin:0 0 12px;">Aşağıdaki soruları fotoğrafınızla birlikte yanıtlayarak ön değerlendirmenin daha doğru yapılmasına yardımcı olabilirsiniz.</p>
+    <p style="font-size:12.5px; font-weight:600; margin:0 0 8px; line-height:1.4;">Lezyonun durumu ve geçmişi nedir? (Kaşıntı, büyüme, ağrı, şekil/renk/yapı değişimi, kanama veya kabarıklık var mı? Vücudunuzun neresinde yer alıyor? Kendinizde veya ailenizde cilt kanseri öyküsü var mı?)</p>
+    <textarea id="lesionInfo" style="width:100%; min-height:100px; border:1px solid var(--line); border-radius:10px; padding:12px; font-family:inherit; font-size:13px; color:var(--ink); background:var(--bg); resize:vertical; outline:none;" placeholder="Bilgileri buraya yazın..." onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='var(--line)'"></textarea>
+  </div>
+
+  <p class="err" id="err" role="alert"></p>
+  <button class="btn p" id="go" disabled>Değerlendirmeyi gör</button>
+</section>
+
+<!-- YÜKLENDİ EKRANI -->
+<section id="done" hidden>
+  <div class="brand"><svg class="i" style="width:38px;height:38px"><use href="#logo"/></svg><div style="text-align:left"><b>DermaVision</b><small>AI Dermatology</small></div></div>
+  <div class="ok"><svg class="i"><use href="#check"/></svg></div>
+  <h1>Fotoğrafınız yüklendi</h1>
+  <p class="sub">Demo sürümünde yapay zeka değerlendirmesi henüz yok. Sonraki aşamada fotoğraf sunucuya gönderilecek ve yapay zeka size birkaç soru soracak.</p>
+  <img id="donePrev" alt="Yüklenen fotoğraf">
+  <button class="btn p" id="again">Yeni fotoğraf ekle</button>
+  <p class="note">Bu uygulama tanı koymaz. Kesin değerlendirme için dermatolog muayenesi gerekir.</p>
+</section>
+
+</main>
+
+<!-- ALT MENÜ (yalnızca giriş yaptıktan sonra) -->
+<nav id="altMenu" hidden aria-label="Ana menü">
+  <button class="tab on" data-tab="up"><svg class="i"><use href="#scan"/></svg><span>Yükle</span></button>
+  <button class="tab" data-tab="x"><svg class="i"><use href="#doc"/></svg><span>Açıklama</span></button>
+  <button class="tab" data-tab="x"><svg class="i"><use href="#pin"/></svg><span>Hastaneler</span></button>
+  <button class="tab" data-tab="x"><svg class="i"><use href="#user"/></svg><span>Profil</span></button>
+</nav>
+
+<div id="kameraEkrani" hidden role="dialog" aria-label="Kamera">
+  <video id="vid" playsinline muted></video>
+  <div class="cb"><button id="camClose">Vazgeç</button><button class="snap" id="snap" aria-label="Fotoğraf çek"></button><span style="min-width:70px"></span></div>
+</div>
+<div id="toast" hidden></div>
+
+<script>
+const $ = s => document.querySelector(s);
+
+const EKRANLAR = ['welcome', 'login', 'forgot', 'reset', 'signup', 'up', 'done'];
+const MENULU = ['up', 'done'];
+const show = n => {
+  for (const k of EKRANLAR) $('#' + k).hidden = k !== n;
+  $('#altMenu').hidden = !MENULU.includes(n);
+  document.body.classList.toggle('menulu', MENULU.includes(n));
+  scrollTo(0, 0);
+};
+
+let file = null, url = null, stream = null, tt;
+
+function toast(m, ms = 3500){ const t=$('#toast'); t.textContent=m; t.hidden=false; clearTimeout(tt); tt=setTimeout(()=>t.hidden=true, ms); }
+function msg(m){ $('#err').textContent = m; }
+function sync(){ $('#go').disabled = !(file && $('#consent').checked); }
+
+// ---------- API yardımcıları
+const post = async (u, body) => {
+  const r = await fetch(u, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(body || {})
+  });
+  const d = await r.json().catch(() => ({}));
+  if (!r.ok) {
+    throw new Error(typeof d.detail === 'string' ? d.detail
+      : (d.detail?.[0]?.msg || 'Bir hata oluştu.').replace(/^Value error, /, ''));
+  }
+  return d;
+};
+const mailRe = /^[^\s@]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,}$/;
+const pwErr = p =>
+  p.length < 8 ? 'Şifre en az 8 karakter olmalı.' :
+  (!/[A-Z]/.test(p) || !/[a-z]/.test(p) || !/\d/.test(p)) ? 'En az 1 büyük harf, 1 küçük harf ve 1 rakam gerekli.' : '';
+
+// ---------- Şifre göster/gizle (göz simgesi)
+document.querySelectorAll('input[type=password]').forEach(inp => {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'eye';
+  const ciz = gizli => {
+    b.innerHTML = '<svg class="i"><use href="#' + (gizli ? 'goz' : 'goz-kapali') + '"/></svg>';
+    b.setAttribute('aria-label', gizli ? 'Şifreyi göster' : 'Şifreyi gizle');
+  };
+  ciz(true);
+  b.onclick = () => {
+    const gizli = inp.type === 'password';
+    inp.type = gizli ? 'text' : 'password';
+    ciz(!gizli);
+    inp.focus();
+  };
+  inp.after(b);
+});
+
+// ---------- Fotoğraf seçme
+function setFile(f){
+  if(!f) return;
+  if(!/^image\/(jpeg|png)$/.test(f.type)){ msg('Lütfen JPG veya PNG biçiminde bir fotoğraf seçin.'); return; }
+  if(f.size > 10*1024*1024){ msg('Dosya 10 MB sınırını aşıyor. Daha küçük bir fotoğraf seçin.'); return; }
+  msg('');
+  if(url) URL.revokeObjectURL(url);
+  file = f; url = URL.createObjectURL(f);
+  $('#prev').src = url;
+  $('#drop').classList.add('has');
+  $('#fname').textContent = f.name + ' · ' + (f.size/1048576).toFixed(1) + ' MB';
+  $('#fname').hidden = false;
+  sync();
+}
+
+async function openCam(){
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ $('#nat').click(); return; }
+  try{
+    stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});
+    $('#vid').srcObject = stream;
+    $('#kameraEkrani').hidden = false;
+    await $('#vid').play();
+  }catch(e){
+    closeCam();
+    msg('Kameraya erişilemedi (' + (e && e.name) + '). Tarayıcı iznini kontrol edin ya da Galeri düğmesiyle fotoğraf seçin.');
+  }
+}
+function closeCam(){
+  if(stream){ stream.getTracks().forEach(t=>t.stop()); stream=null; }
+  $('#kameraEkrani').hidden = true;
+}
+
+// ---------- Giriş
+function setErr(id, m){
+  $('#'+id+'Err').textContent = m;
+  $('#'+id).closest('.in').classList.toggle('bad', !!m);
+  $('#'+id).setAttribute('aria-invalid', m ? 'true' : 'false');
+}
+function checkLogin(){
+  const em = $('#em').value.trim(), pw = $('#pw').value;
+  let e1 = '', e2 = '';
+  if(!em) e1 = 'E-posta adresinizi girin.';
+  else if(!mailRe.test(em)) e1 = 'Geçerli bir e-posta girin (örneğin ad@ornek.com).';
+  if(!pw) e2 = 'Şifrenizi girin.';   // girişte şifre politikası denetlenmez
+  setErr('em', e1); setErr('pw', e2);
+  return !e1 && !e2;
+}
+
+$('#startBtn').onclick = () => show('login');
+
+$('#loginBtn').onclick = async () => {
+  if(!checkLogin()) return;
+  const b = $('#loginBtn'); b.disabled = true;
+  try {
+    await post('/api/giris', {eposta: $('#em').value.trim(), sifre: $('#pw').value, beni_hatirla: $('#remember').checked});
+    $('#pw').value = '';
+    show('up');
+  } catch (x) {
+    setErr('pw', x.message);
+  } finally {
+    b.disabled = false;
+  }
+};
+['em','pw'].forEach(id => {
+  $('#'+id).addEventListener('input', () => setErr(id, ''));
+  $('#'+id).addEventListener('keydown', e => { if(e.key === 'Enter') $('#loginBtn').click(); });
+});
+$('#g').onclick = () => { window.location.href = '/api/auth/google'; };
+
+// Ekranlar arası geçiş bağlantıları
+$('#forgotLink').onclick = e => { e.preventDefault(); show('forgot'); };
+$('#signupLink').onclick = e => { e.preventDefault(); show('signup'); };
+document.querySelectorAll('.toLogin').forEach(a => a.onclick = e => { e.preventDefault(); show('login'); });
+
+$('#logout').onclick = async () => {
+  try { await post('/api/cikis'); } catch (e) {}
+  file = null; $('#drop').classList.remove('has'); $('#fname').hidden = true; $('#consent').checked = false; sync();
+  show('login');
+};
+
+// Alt menü: şimdilik yalnızca "Yükle" çalışıyor
+document.querySelectorAll('#altMenu .tab').forEach(t => t.onclick = () => {
+  if (t.dataset.tab === 'up') show('up');
+  else toast('Bu bölüm sonraki aşamada eklenecek.');
+});
+
+// ---------- Kayıt
+// Doğum tarihi: ya tarih seçilir ya da "Belirtmek istemiyorum" işaretlenir
+$('#s_dob').max = new Date().toISOString().slice(0, 10);
+$('#s_dob_skip').onchange = e => {
+  $('#s_dob').disabled = e.target.checked;
+  if (e.target.checked) $('#s_dob').value = '';
+};
+
+$('#signupBtn').onclick = async () => {
+  const ad = $('#s_ad').value.trim().replace(/\s+/g, ' ');
+  const soyad = $('#s_soyad').value.trim().replace(/\s+/g, ' ');
+  const em = $('#s_em').value.trim();
+  const p = $('#s_pw').value, p2 = $('#s_pw2').value;
+  const dob = $('#s_dob').value, dobAtla = $('#s_dob_skip').checked;
+  const g = document.querySelector('input[name=gender]:checked');
+  const isimRe = /^\p{L}+(?:[ '\-]\p{L}+)*$/u;
+  const e = !isimRe.test(ad) ? 'Adınızı girin; rakam veya özel karakter içermemeli.'
+    : !isimRe.test(soyad) ? 'Soyadınızı girin; rakam veya özel karakter içermemeli.'
+    : !mailRe.test(em) ? 'Geçerli bir e-posta girin.'
+    : pwErr(p) || (p !== p2 ? 'Şifreler eşleşmiyor.' : '')
+    || (!dob && !dobAtla ? 'Doğum tarihinizi girin ya da "Belirtmek istemiyorum"u seçin.' : '')
+    || (!($('#s_adult').checked && $('#s_kvkk').checked && $('#s_terms').checked) ? 'Zorunlu onay kutularını işaretleyin.' : '');
+  $('#s_err').textContent = e;
+  if (e) return;
+  const b = $('#signupBtn'); b.disabled = true;
+  try {
+    const d = await post('/api/kayit', {
+            ad: ad, soyad: soyad, eposta: em, sifre: p, sifre_tekrar: p2,
+      dogum_tarihi: dobAtla ? null : dob,
+      cinsiyet: g ? g.value : null,
+      yetiskin_onay: true, kvkk_onay: true, kosul_onay: true
+    });
+    toast(d.mesaj, 8000); show('login');
+  } catch (x) {
+    $('#s_err').textContent = x.message;
+  } finally {
+    b.disabled = false;
+  }
+};
+
+// ---------- Şifremi unuttum / yeni şifre
+$('#forgotBtn').onclick = async () => {
+  const em = $('#f_em').value.trim();
+  if (!mailRe.test(em)) { $('#f_err').textContent = 'Geçerli bir e-posta girin.'; return; }
+  $('#f_err').textContent = '';
+  try {
+    const d = await post('/api/sifre-unuttum', {eposta: em});
+    toast(d.mesaj, 6000); show('login');
+  } catch (x) {
+    $('#f_err').textContent = x.message;
+  }
+};
+
+$('#resetBtn').onclick = async () => {
+  const p = $('#r_pw').value, p2 = $('#r_pw2').value;
+  const e = pwErr(p) || (p !== p2 ? 'Şifreler eşleşmiyor.' : '');
+  $('#r_err').textContent = e;
+  if (e) return;
+  try {
+    const t = new URLSearchParams(location.search).get('sifirla');
+    const d = await post('/api/sifre-sifirla', {token: t, yeni_sifre: p});
+    toast(d.mesaj);
+    history.replaceState(null, '', '/');
+    show('login');
+  } catch (x) {
+    $('#r_err').textContent = x.message;
+  }
+};
+
+// ---------- Kamera / galeri / yükleme
+$('#camBtn').onclick = openCam;
+$('#galBtn').onclick = () => $('#gal').click();
+$('#nat').onchange = e => { setFile(e.target.files[0]); e.target.value=''; };
+$('#gal').onchange = e => { setFile(e.target.files[0]); e.target.value=''; };
+$('#consent').onchange = sync;
+$('#camClose').onclick = closeCam;
+$('#snap').onclick = () => {
+  const v = $('#vid'), c = document.createElement('canvas');
+  c.width = v.videoWidth; c.height = v.videoHeight;
+  c.getContext('2d').drawImage(v,0,0);
+  c.toBlob(b => { closeCam(); setFile(new File([b],'cekim.jpg',{type:'image/jpeg'})); },'image/jpeg',.92);
+};
+
+$('#go').onclick = async () => {
+  const b = $('#go'); b.disabled = true;
+  b.textContent = 'Yükleniyor…';
+  const fd = new FormData();
+  fd.append('dosya', file);
+  let r;
+  try { r = await fetch('/api/gorseller', { method: 'POST', body: fd }); } catch (e) { r = null; }
+  if (r && r.status === 401) {
+    toast('Oturum süresi doldu, tekrar giriş yapın.');
+    b.textContent = 'Değerlendirmeyi gör'; sync(); show('login');
+    return;
+  }
+  if (!r || !r.ok) {
+    msg('Yükleme başarısız oldu. Tekrar deneyin.');
+    b.textContent = 'Değerlendirmeyi gör';
+    sync();
+    return;
+  }
+  $('#donePrev').src = url;
+  b.textContent = 'Değerlendirmeyi gör';
+  show('done');
+};
+$('#again').onclick = () => {
+  file = null; $('#drop').classList.remove('has'); $('#fname').hidden = true;
+  $('#consent').checked = false; sync(); show('up');
+};
+
+// ---------- Açılış: e-posta / Google dönüşleri ve açık oturum kontrolü
+const GOOGLE_NEDEN = {
+  iptal: 'Google girişi iptal edildi ya da izin verilmedi.',
+  durum: 'Güvenlik doğrulaması eşleşmedi. Siteyi tam olarak http://localhost:8000 adresinden açın.',
+  anahtar: 'Sunucuda GOOGLE_CLIENT_SECRET tanımlı değil.',
+  jeton: 'Google, giriş kodunu doğrulamadı. Terminaldeki [Google] satırına bakın.',
+  eposta: 'Google hesabınızın e-postası doğrulanmamış.'
+};
+(async () => {
+  const qs = new URLSearchParams(location.search);
+  if (qs.get('sifirla')) { show('reset'); return; }
+  if (qs.get('aktivasyon')) {
+    show('login');
+    fetch('/api/aktivasyon?token=' + encodeURIComponent(qs.get('aktivasyon')), {method: 'POST'})
+      .then(r => r.json())
+      .then(d => toast(d.mesaj || d.detail || 'İşlem tamamlandı.', 7000))
+      .catch(() => toast('Etkinleştirme başarısız oldu.'));
+    history.replaceState(null, '', '/');
+    return;
+  }
+  if (qs.get('giris') === 'google') { history.replaceState(null, '', '/'); show('up'); return; }
+  if (qs.get('hata') === 'google') {
+    const n = qs.get('neden');
+    history.replaceState(null, '', '/');
+    show('login');
+    toast('Google ile giriş başarısız oldu. ' + (GOOGLE_NEDEN[n] || ''), 9000);
+    return;
+  }
+  try { const r = await fetch('/api/ben'); if (r.ok) show('up'); } catch (e) {}
+})();
+</script>
+</body>
+</html>
