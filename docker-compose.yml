@@ -4,13 +4,10 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_USER: derma
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-degistir_beni}   # .env dosyasına DB_PASSWORD=... yazın
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-degistir_beni} 
       POSTGRES_DB: dermavision
     volumes:
       - pg_veri:/var/lib/postgresql/data    # veritabanı dosyaları (konteyner silinse de kalır)
-    # Veritabanını bilgisayarınızdan bir araçla (DBeaver, pgAdmin) görmek isterseniz alttaki iki satırı açın:
-    # ports:
-    #   - "127.0.0.1:5432:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U derma -d dermavision"]
       interval: 5s
@@ -31,7 +28,7 @@ services:
       DATABASE_URL: postgresql+psycopg://derma:${DB_PASSWORD:-degistir_beni}@db:5432/dermavision
     volumes:
       - derma_veri:/data                      # fotoğraflar (konteyner silinse de kalır)
-      - ./model:/model:ro                     # model dosyaları (bu klasöre koyun, salt okunur)
+      - ./model:/model:ro                     # model dosyaları
     ports:
       - "8000:8000"
     healthcheck:
