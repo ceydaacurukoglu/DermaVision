@@ -10,7 +10,6 @@ sqlalchemy>=2.0
 psycopg[binary]>=3.1
 google-auth
 requests
-# --- Yapay zekâ modeli (Kaggle'daki TensorFlow sürümüyle aynı) ---
 tensorflow-cpu==2.21.0
 numpy
 pillow
