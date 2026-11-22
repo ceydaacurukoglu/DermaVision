@@ -7,7 +7,6 @@ import { Brand, Btn, Check, ErrText, H1, Link, Note, Screen, Sub, useTheme } fro
 
 const MAX = 10 * 1024 * 1024;
 
-// Modelin eğitimde gördüğü vücut bölgeleri (değer = backend'e giden kod)
 const BOLGELER = [
   ['FACE', 'Yüz'], ['NOSE', 'Burun'], ['LIP', 'Dudak'], ['EAR', 'Kulak'], ['SCALP', 'Saçlı deri'], ['NECK', 'Boyun'],
   ['CHEST', 'Göğüs'], ['ABDOMEN', 'Karın'], ['BACK', 'Sırt'], ['ARM', 'Kol'], ['FOREARM', 'Ön kol'], ['HAND', 'El'],
