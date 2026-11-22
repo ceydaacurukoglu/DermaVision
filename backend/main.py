@@ -37,20 +37,7 @@ import models
 import schemas
 from datetime import date
 
-# Çalıştırma (önerilen): docker compose up -d --build
-# Veritabanı PostgreSQL'dir (DATABASE_URL), tablolar ilk açılışta oluşur.
-# Docker'sız yerel çalışma için .env dosyasına DATABASE_URL yazın, sonra:
-#   pip install -r requirements.txt
-#   uvicorn main:app --host 0.0.0.0 --port 8000
-#
-# Gizli ayarlar .env dosyasından okunur (GitHub'a yüklenmemeli):
-#   DB_PASSWORD, DERMA_SECRET_KEY, DERMA_BASE_URL, GOOGLE_CLIENT_SECRET, SMTP_USER, SMTP_PASSWORD
-
 import re
-
-# ---------------------------------------------------------------- Lezyon metninden belirti çıkarma
-# Kullanıcının serbest metni (kaşıntı var/yok, aile geçmişi...) -> True/False/None değerleri.
-# Sonuç lezyon_hakkinda.bilgi (JSONB) alanına {"metin":..., "belirtiler":{...}} olarak yazılır.
 ALANLAR = ("kasinti", "buyume", "agri", "degisim", "kanama", "kabarik", "aile_gecmisi")
 
 _TR = str.maketrans({
