@@ -1,7 +1,4 @@
 import * as SecureStore from 'expo-secure-store';
-
-// ngrok adresiniz (terminalde "ngrok http 8000" çıktısındaki Forwarding satırı).
-// Bu adres backend/.env içindeki DERMA_BASE_URL ile AYNI olmalı. Sonunda "/" olmasın.
 export const BASE_URL = 'https://dormitory-avid-oasis.ngrok-free.dev';
 
 let token = null;
