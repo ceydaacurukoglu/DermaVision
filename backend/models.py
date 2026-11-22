@@ -57,8 +57,6 @@ class LezyonHakkinda(Base):
 
     hakkinda_id: Mapped[int] = mapped_column(primary_key=True)
     kullanici_id: Mapped[int] = mapped_column(ForeignKey("kullanicilar.kullanici_id", ondelete="CASCADE"), index=True)
-    # Kullanıcının yazdığı metin + metinden çıkarılan belirtiler (JSONB):
-    #   {"metin": "...", "belirtiler": {"kasinti": true, "buyume": null, "kanama": false, ...}}
     bilgi: Mapped[dict] = mapped_column(JSONB)
 
     kullanici: Mapped[Kullanici] = relationship(back_populates="hakkindalar")
