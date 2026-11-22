@@ -4,7 +4,6 @@ Bağlantı adresi DATABASE_URL ortam değişkeninden okunur:
     postgresql+psycopg://kullanici:sifre@sunucu:5432/veritabani
 
 Docker Compose bunu otomatik tanımlar (sunucu adı: db).
-Docker'sız çalışacaksanız .env dosyasına kendi adresinizi yazın.
 
 Yüklenen fotoğraflar veritabanında değil, dosya olarak VERI_DIR/uploads altında tutulur
 (Docker'da VERI_DIR=/data, kalıcı bir volume'dur). Veritabanında yalnızca dosya yolu durur.
